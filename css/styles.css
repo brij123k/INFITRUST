@@ -717,6 +717,22 @@ h4 {
   border-radius: var(--radius);
 }
 
+/* Corporate video (vertical 9:16) in the About section */
+.about-video {
+  position: relative;
+  width: min(100%, 22rem);
+  margin-inline: auto;
+}
+
+.about-video video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 9 / 16;
+  border-radius: var(--radius);
+  background-color: var(--ink);
+}
+
 .split-media .frame {
   position: absolute;
   inset: 1.25rem -1.25rem -1.25rem 1.25rem;
