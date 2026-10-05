@@ -48,6 +48,9 @@ const ICONS = {
   award:
     '<path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/><circle cx="12" cy="8" r="6"/>',
   check: '<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>',
+  lock: '<rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+  paperclip:
+    '<path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/>',
   clock: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
   card: '<rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/>',
   sparkles:
@@ -234,6 +237,8 @@ function initQuoteForm() {
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     const f = form.elements;
+    // WhatsApp and email links can't carry files, so list them and the client attaches them in the chat/email
+    const fileNames = Array.from(f.files.files, (file) => file.name);
     const lines = [
       "Hello Infitrust, I would like a quotation.",
       "",
@@ -246,6 +251,8 @@ function initQuoteForm() {
       f.quantity.value ? `Quantity: ${f.quantity.value}` : null,
       f.message.value ? "" : null,
       f.message.value || null,
+      fileNames.length ? "" : null,
+      fileNames.length ? `Attachments (sending with this message): ${fileNames.join(", ")}` : null,
     ].filter((line) => line !== null);
     const text = lines.join("\n");
 
