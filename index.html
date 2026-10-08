@@ -27,37 +27,77 @@
 
     <main>
       <!-- ============ HERO ============ -->
+      <!-- Who it's for (eyebrow) · what we offer (title) · why us (proof list) -->
       <section class="hero">
         <div class="shell hero-grid">
           <div class="hero-text">
-            <p class="eyebrow">Infitrust International · Gems &amp; Jewellery</p>
-            <h1 class="hero-title">Your trusted Indian <em>jewellery</em> sourcing partner</h1>
-            <p class="hero-sub">
-              Fine jewellery manufacturing and sourcing for private-label brands, designers, retailers and
-              wholesalers across 25+ countries — with skilled craftsmanship, stringent quality control and low MOQs.
-            </p>
+            <p class="eyebrow">For jewellery brands, retailers &amp; wholesalers worldwide</p>
+            <h1 class="hero-title">Your collection, <em>made in India</em> — under your brand</h1>
+            <ul class="hero-proof">
+              <li><svg class="icon"><use href="#i-check"></use></svg>Low MOQ — start small, scale fast</li>
+              <li><svg class="icon"><use href="#i-check"></use></svg>GIA &amp; IGI certified diamonds on request</li>
+              <li><svg class="icon"><use href="#i-check"></use></svg>Exporting to 25+ countries, fully insured</li>
+            </ul>
             <div class="hero-buttons">
               <a href="#contact" class="btn btn-dark">Get a Quote</a>
-              <a href="#collections" class="btn btn-outline">Explore Collections</a>
+              <a href="#collections" class="btn btn-outline">View Collections</a>
             </div>
           </div>
 
-          <div class="hero-media">
-            <img src="assets/company/hero-model.jpg" alt="Model wearing a lab-grown diamond tennis necklace" width="858" height="909" />
-            <div class="hero-badge">
-              <strong>25+</strong>
-              <span>countries served<br />by our team</span>
-            </div>
+          <!-- Rotating banner: add or remove slides freely; "product" slides sit on white -->
+          <div class="hero-media hero-slider" aria-roledescription="carousel" aria-label="Our collections">
+            <a href="lab-grown-diamond.html" class="hero-slide is-active">
+              <img src="assets/products/lab-grown-diamond/cover.jpg" alt="Model wearing a lab-grown diamond bracelet" width="1000" height="1000" />
+              <span class="hero-slide-label">Lab-Grown Diamond · 9K–18K Gold</span>
+            </a>
+            <a href="sterling-silver.html" class="hero-slide product">
+              <img src="assets/products/sterling-silver/cover.jpg" alt="925 sterling silver lab diamond halo ring" width="1000" height="1000" loading="lazy" />
+              <span class="hero-slide-label">925 Sterling Silver · Lab Diamond</span>
+            </a>
+            <a href="hip-hop-iced-out.html" class="hero-slide product">
+              <img src="assets/products/hip-hop-iced-out/cover.jpg" alt="Iced-out gold eagle pendant" width="1000" height="1000" loading="lazy" />
+              <span class="hero-slide-label">Hip Hop · Moissanite &amp; Iced-Out</span>
+            </a>
+            <a href="demi-fine-vermeil.html" class="hero-slide">
+              <img src="assets/products/demi-fine-vermeil/cover.jpg" alt="Stackable pavé band worn on the hand" width="1000" height="1000" loading="lazy" />
+              <span class="hero-slide-label">Demi-Fine &amp; Gold Vermeil</span>
+            </a>
+            <a href="gemstone.html" class="hero-slide product">
+              <img src="assets/products/gemstone/cover.jpg" alt="Sapphire and diamond swirl earrings in rose gold" width="1000" height="1000" loading="lazy" />
+              <span class="hero-slide-label">Gemstone &amp; Colored Stone</span>
+            </a>
+            <a href="custom-private-label.html" class="hero-slide">
+              <img src="assets/products/custom-private-label/cover.jpg" alt="Model wearing a custom filigree pendant" width="667" height="1000" loading="lazy" />
+              <span class="hero-slide-label">Custom &amp; Private Label</span>
+            </a>
+            <div class="hero-dots" role="tablist" aria-label="Choose slide"></div>
           </div>
         </div>
       </section>
 
+      <!-- ============ TRUST MARQUEE (scrolling) ============ -->
+      <!-- The list is duplicated by main.js so the scroll loops seamlessly -->
+      <div class="trust-marquee" aria-label="Why importers choose Infitrust">
+        <ul class="trust-track">
+          <li><svg class="icon"><use href="#i-globe"></use></svg>Exported to 25+ countries</li>
+          <li><svg class="icon"><use href="#i-shield"></use></svg>GIA · IGI certified diamonds</li>
+          <li><svg class="icon"><use href="#i-award"></use></svg>GJEPC member — India's export council</li>
+          <li><svg class="icon"><use href="#i-package"></use></svg>Low MOQ for new brands</li>
+          <li><svg class="icon"><use href="#i-design"></use></svg>OEM &amp; ODM · Your logo on every piece</li>
+          <li><svg class="icon"><use href="#i-clock"></use></svg>20–25 day production</li>
+          <li><svg class="icon"><use href="#i-sparkles"></use></svg>Photo &amp; video approval before dispatch</li>
+          <li><svg class="icon"><use href="#i-truck"></use></svg>Insured DHL · FedEx · UPS shipping</li>
+          <li><svg class="icon"><use href="#i-lock"></use></svg>Your designs kept 100% confidential</li>
+          <li><svg class="icon"><use href="#i-card"></use></svg>Pay 50% now, 50% after you see your pieces</li>
+        </ul>
+      </div>
+
       <!-- ============ STATS ============ -->
       <div class="stats">
-        <div class="stat"><strong>25+</strong><span>Countries served</span></div>
-        <div class="stat"><strong>Thousands</strong><span>Of designs to choose from</span></div>
+        <div class="stat"><strong>25+</strong><span>Countries exported to</span></div>
+        <div class="stat"><strong>GIA · IGI</strong><span>Certified on request</span></div>
         <div class="stat"><strong>20–25</strong><span>Working days production</span></div>
-        <div class="stat"><strong>GIA · IGI</strong><span>Certification on request</span></div>
+        <div class="stat"><strong>4–10</strong><span>Working days express delivery</span></div>
       </div>
 
       <!-- ============ FEATURES ============ -->

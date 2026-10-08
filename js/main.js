@@ -2,6 +2,7 @@
  * Infitrust International — shared site script
  * - Inserts the icon sprite, header and footer on every page (edit them once, here)
  * - Mobile menu, scroll reveal, and the quote form (WhatsApp / email)
+ * - Home hero banner + trust strip, and the design filters on collection pages
  */
 
 /* ---------- Contact details (used across the site) ---------- */
@@ -217,6 +218,101 @@ function initReveal() {
   nodes.forEach((n) => observer.observe(n));
 }
 
+/* ---------- Home hero: rotating banner ---------- */
+function initHeroSlider() {
+  const slider = document.querySelector(".hero-slider");
+  if (!slider) return;
+  const slides = Array.from(slider.querySelectorAll(".hero-slide"));
+  const dots = slider.querySelector(".hero-dots");
+  if (slides.length < 2) return;
+
+  let current = 0;
+  const show = (index) => {
+    current = (index + slides.length) % slides.length;
+    slides.forEach((s, i) => s.classList.toggle("is-active", i === current));
+    dots.querySelectorAll("button").forEach((d, i) => d.setAttribute("aria-selected", String(i === current)));
+  };
+
+  slides.forEach((_, i) => {
+    dots.insertAdjacentHTML(
+      "beforeend",
+      `<button type="button" role="tab" aria-label="Slide ${i + 1}" aria-selected="${i === 0}"></button>`,
+    );
+  });
+  dots.querySelectorAll("button").forEach((d, i) => d.addEventListener("click", () => show(i)));
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  let timer = setInterval(() => show(current + 1), 3500);
+  slider.addEventListener("mouseenter", () => clearInterval(timer));
+  slider.addEventListener("mouseleave", () => {
+    clearInterval(timer);
+    timer = setInterval(() => show(current + 1), 3500);
+  });
+}
+
+/* ---------- Trust strip: duplicate the items so the scroll loops seamlessly ---------- */
+function initTrustMarquee() {
+  const track = document.querySelector(".trust-track");
+  if (!track || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  Array.from(track.children).forEach((li) => {
+    const copy = li.cloneNode(true);
+    copy.setAttribute("aria-hidden", "true");
+    track.appendChild(copy);
+  });
+}
+
+/* ---------- Collection pages: filter designs by type ---------- */
+// The type is read from the reference code prefix, e.g. "Ref. LRCAD-11" → Rings
+const PRODUCT_TYPES = [
+  { label: "Rings", prefixes: ["LR", "RR", "GR", "R"] },
+  { label: "Earrings", prefixes: ["ER"] },
+  { label: "Bracelets", prefixes: ["BR"] },
+  { label: "Necklaces & Chains", prefixes: ["NK", "N"] },
+  { label: "Pendants", prefixes: ["HPD", "PD", "P"] },
+];
+
+function productType(card) {
+  const code = (card.querySelector(".product-code")?.textContent || "").replace(/^Ref\.\s*/, "");
+  const prefix = code.split("CAD")[0];
+  const type = PRODUCT_TYPES.find((t) => t.prefixes.includes(prefix));
+  return type ? type.label : "Other";
+}
+
+function initFilters() {
+  const grid = document.querySelector(".product-grid");
+  if (!grid) return;
+  const cards = Array.from(grid.querySelectorAll(".product-card"));
+  cards.forEach((card) => (card.dataset.type = productType(card)));
+
+  // Only show filters for types this page actually has, in a fixed order
+  const labels = [...PRODUCT_TYPES.map((t) => t.label), "Other"];
+  const counts = Object.fromEntries(labels.map((l) => [l, cards.filter((c) => c.dataset.type === l).length]));
+  const present = labels.filter((l) => counts[l] > 0);
+  if (present.length < 2) return;
+
+  const button = (value, label, count, pressed) =>
+    `<button type="button" data-filter="${value}" aria-pressed="${pressed}">${label}<span>${count}</span></button>`;
+  grid.insertAdjacentHTML(
+    "beforebegin",
+    `<div class="filters" role="group" aria-label="Filter designs">${[
+      button("all", "All", cards.length, true),
+      ...present.map((l) => button(l, l, counts[l], false)),
+    ].join("")}</div>`,
+  );
+
+  const bar = grid.previousElementSibling;
+  bar.addEventListener("click", (event) => {
+    const chosen = event.target.closest("button");
+    if (!chosen) return;
+    const value = chosen.dataset.filter;
+    bar.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b === chosen)));
+    cards.forEach((card) => {
+      card.hidden = value !== "all" && card.dataset.type !== value;
+      if (!card.hidden) card.classList.add("is-visible");
+    });
+  });
+}
+
 /* ---------- Quote form: sends the enquiry via WhatsApp or email ---------- */
 function initQuoteForm() {
   const form = document.getElementById("quote-form");
@@ -271,4 +367,7 @@ renderHeader();
 renderFooter();
 initMenu();
 initReveal();
+initHeroSlider();
+initTrustMarquee();
+initFilters();
 initQuoteForm();
