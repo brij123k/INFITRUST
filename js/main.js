@@ -271,11 +271,119 @@ const PRODUCT_TYPES = [
   { label: "Pendants", prefixes: ["HPD", "PD", "P"] },
 ];
 
+const productRef = (card) => (card.querySelector(".product-code")?.textContent || "").replace(/^Ref\.\s*/, "").trim();
+
 function productType(card) {
-  const code = (card.querySelector(".product-code")?.textContent || "").replace(/^Ref\.\s*/, "");
-  const prefix = code.split("CAD")[0];
+  const prefix = productRef(card).split("CAD")[0];
   const type = PRODUCT_TYPES.find((t) => t.prefixes.includes(prefix));
   return type ? type.label : "Other";
+}
+
+const productUrl = (slug, ref) => `product.html?collection=${slug}&ref=${encodeURIComponent(ref)}`;
+
+/* ---------- Collection pages: each card opens its product page ---------- */
+// The image and title become links; the title link stretches over the whole card (see .product-link in CSS)
+function linkProductCard(card, slug) {
+  const url = productUrl(slug, productRef(card));
+  const img = card.querySelector(".product-img img");
+  const title = card.querySelector(".product-info h3");
+  if (img) img.outerHTML = `<a href="${url}" tabindex="-1" aria-hidden="true">${img.outerHTML}</a>`;
+  if (title) title.innerHTML = `<a class="product-link" href="${url}">${title.innerHTML}</a>`;
+}
+
+function initProductLinks() {
+  const slug = document.body.dataset.page;
+  if (!COLLECTIONS.some((c) => c.slug === slug)) return;
+  document.querySelectorAll(".product-grid .product-card").forEach((card) => linkProductCard(card, slug));
+}
+
+/* ---------- Product page: product.html?collection=sterling-silver&ref=ERCAD-27 ---------- */
+// Reads the design straight from its collection page, so products are only ever listed in one place
+async function initProductPage() {
+  const root = document.getElementById("product-detail");
+  if (!root) return;
+
+  const params = new URLSearchParams(location.search);
+  const collection = COLLECTIONS.find((c) => c.slug === params.get("collection"));
+  const ref = params.get("ref");
+
+  const notFound = () => {
+    root.innerHTML = `
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a> / <a href="index.html#collections">Collections</a></nav>
+      <div class="product-missing">
+        <h1>Design not found</h1>
+        <p class="hero-sub">This design may have been moved. Browse our collections, or ask us for the full catalogue.</p>
+        <div class="hero-buttons">
+          <a href="${collection ? `${collection.slug}.html#designs` : "index.html#collections"}" class="btn btn-dark">View Collection</a>
+          <a href="index.html#contact" class="btn btn-outline">Contact Us</a>
+        </div>
+      </div>`;
+  };
+  if (!collection || !ref) return notFound();
+
+  let doc;
+  try {
+    const response = await fetch(`${collection.slug}.html`);
+    if (!response.ok) throw new Error(response.statusText);
+    doc = new DOMParser().parseFromString(await response.text(), "text/html");
+  } catch {
+    return notFound();
+  }
+
+  const products = Array.from(doc.querySelectorAll(".product-grid .product-card"), (card) => ({
+    card,
+    ref: productRef(card),
+    name: card.querySelector(".product-info h3")?.textContent.trim() || "",
+    img: card.querySelector(".product-img img")?.getAttribute("src") || "",
+    type: productType(card),
+  }));
+  const product = products.find((p) => p.ref.toLowerCase() === ref.toLowerCase());
+  if (!product) return notFound();
+
+  const description = doc.querySelector('meta[name="description"]')?.content || "";
+  const chips = doc.querySelector(".page-banner .chips")?.outerHTML || "";
+  const enquireUrl = `index.html?collection=${collection.slug}&design=${encodeURIComponent(product.ref)}#contact`;
+  const waText = `Hello Infitrust, I'm interested in design ${product.ref} (${product.name}) from your ${collection.name} collection.`;
+
+  document.title = `${product.name} (${product.ref}) — Infitrust International`;
+  document.querySelector('meta[name="description"]')?.setAttribute("content", `${product.name}, ref. ${product.ref}. ${description}`);
+
+  root.innerHTML = `
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a> / <a href="index.html#collections">Collections</a> / <a href="${collection.slug}.html#designs">${collection.short}</a> / ${product.name}</nav>
+    <div class="product-detail">
+      <div class="product-detail-img"><img src="${product.img}" alt="${product.name}" width="720" height="720" /></div>
+      <div>
+        <p class="eyebrow">${collection.short} · ${product.type}</p>
+        <h1>${product.name}</h1>
+        <p class="product-code">Ref. ${product.ref}</p>
+        <p class="hero-sub">${description}</p>
+        ${chips}
+        <dl class="product-specs">
+          <div><dt>Reference</dt><dd>${product.ref}</dd></div>
+          <div><dt>Category</dt><dd>${product.type}</dd></div>
+          <div><dt>Collection</dt><dd><a href="${collection.slug}.html#designs">${collection.name}</a></dd></div>
+          <div><dt>Customisable</dt><dd>Metal, stones, size, finish &amp; your logo</dd></div>
+        </dl>
+        <div class="hero-buttons">
+          <a href="${enquireUrl}" class="btn btn-dark">Enquire About This Design</a>
+          <a href="https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(waText)}" target="_blank" rel="noopener" class="btn btn-whatsapp">${icon("chat")}WhatsApp Us</a>
+        </div>
+      </div>
+    </div>`;
+
+  // Related designs: same category first, then the rest of the collection
+  const others = products.filter((p) => p !== product);
+  const related = [...others.filter((p) => p.type === product.type), ...others.filter((p) => p.type !== product.type)].slice(0, 4);
+  const section = document.getElementById("related");
+  if (!section || !related.length) return;
+  const grid = section.querySelector(".product-grid");
+  related.forEach((p) => {
+    const card = document.importNode(p.card, true);
+    card.classList.remove("reveal");
+    linkProductCard(card, collection.slug);
+    grid.appendChild(card);
+  });
+  section.hidden = false;
 }
 
 function initFilters() {
@@ -366,8 +474,10 @@ insertIconSprite();
 renderHeader();
 renderFooter();
 initMenu();
+initProductLinks();
 initReveal();
 initHeroSlider();
 initTrustMarquee();
 initFilters();
+initProductPage();
 initQuoteForm();
