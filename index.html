@@ -628,65 +628,15 @@
             </ul>
           </div>
 
-          <form id="quote-form" class="quote-form reveal">
+          <!-- The form itself opens as a popup (built in main.js) -->
+          <div class="quote-form quote-cta reveal">
             <h3>Request a quote</h3>
-            <p class="form-note">Fill in your details, then send them to us on WhatsApp or by email.</p>
-
-            <div class="field-row">
-              <div class="field">
-                <label for="f-name">Name <span>*</span></label>
-                <input id="f-name" name="name" type="text" autocomplete="name" required />
-              </div>
-              <div class="field">
-                <label for="f-company">Company / Brand</label>
-                <input id="f-company" name="company" type="text" autocomplete="organization" />
-              </div>
-            </div>
-            <div class="field-row">
-              <div class="field">
-                <label for="f-email">Email <span>*</span></label>
-                <input id="f-email" name="email" type="email" autocomplete="email" required />
-              </div>
-              <div class="field">
-                <label for="f-phone">Phone / WhatsApp</label>
-                <input id="f-phone" name="phone" type="tel" autocomplete="tel" />
-              </div>
-            </div>
-            <div class="field-row">
-              <div class="field">
-                <label for="f-country">Country</label>
-                <input id="f-country" name="country" type="text" autocomplete="country-name" />
-              </div>
-              <div class="field">
-                <label for="f-quantity">Approx. quantity</label>
-                <input id="f-quantity" name="quantity" type="text" placeholder="e.g. 50 pcs per design" />
-              </div>
-            </div>
-            <div class="field">
-              <label for="f-collection">Collection</label>
-              <select id="f-collection" name="collection">
-                <option value="">Select a collection</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="f-message">Your requirements</label>
-              <textarea id="f-message" name="message" placeholder="Design references, metal, stones, finish, branding, timeline…"></textarea>
-            </div>
-            <div class="field">
-              <label for="f-files">Attachments</label>
-              <input id="f-files" name="files" type="file" multiple accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.zip,.stl,.3dm" />
-              <p class="field-hint">
-                <svg class="icon"><use href="#i-paperclip"></use></svg>
-                Sketches, reference photos or CAD files. Once WhatsApp or your email opens, please attach these files
-                there too. All designs are kept strictly confidential.
-              </p>
-            </div>
-
+            <p class="form-note">Share your designs, quantities, metal and stones — we'll reply with a detailed quotation. All designs are kept strictly confidential.</p>
             <div class="form-buttons">
-              <button type="submit" value="whatsapp" class="btn btn-whatsapp"><svg class="icon"><use href="#i-chat"></use></svg>Send on WhatsApp</button>
-              <button type="submit" value="email" class="btn btn-dark"><svg class="icon"><use href="#i-mail"></use></svg>Send by Email</button>
+              <a href="#contact" class="btn btn-dark">Open Enquiry Form</a>
+              <a href="https://wa.me/919902413410" target="_blank" rel="noopener" class="btn btn-whatsapp"><svg class="icon"><use href="#i-chat"></use></svg>WhatsApp Us</a>
             </div>
-          </form>
+          </div>
         </div>
       </section>
     </main>

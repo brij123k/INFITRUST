@@ -108,7 +108,7 @@ function renderHeader() {
           <a href="index.html#process">How to Order</a>
           <a href="index.html#about">About Us</a>
           <a href="index.html#faq">FAQ</a>
-          <a href="index.html#contact">Contact</a>
+          <a href="index.html#contact" data-scroll-link>Contact</a>
         </nav>
 
         <div class="header-actions">
@@ -128,7 +128,7 @@ function renderHeader() {
           <a href="index.html#process">How to Order</a>
           <a href="index.html#about">About Us</a>
           <a href="index.html#faq">FAQ</a>
-          <a href="index.html#contact">Contact</a>
+          <a href="index.html#contact" data-scroll-link>Contact</a>
           <a href="index.html#contact" class="btn btn-dark">Get a Quote</a>
         </nav>
       </div>
@@ -421,22 +421,114 @@ function initFilters() {
   });
 }
 
-/* ---------- Quote form: sends the enquiry via WhatsApp or email ---------- */
-function initQuoteForm() {
+/* ---------- Quote form: opens as a popup on every page, sends the enquiry via WhatsApp or email ---------- */
+// Any link to "#contact" (Get a Quote, Enquire, …) opens the popup instead of leaving the page.
+// Links marked data-scroll-link (the "Contact" menu item) still scroll to the contact section.
+function renderQuoteModal() {
+  const options = COLLECTIONS.map((c) => `<option value="${c.name}">${c.name}</option>`).join("");
+  document.body.insertAdjacentHTML(
+    "beforeend",
+    `<dialog class="quote-modal" id="quote-modal" aria-labelledby="quote-modal-title">
+      <form id="quote-form" class="quote-form">
+        <button type="button" class="modal-close" data-close-modal aria-label="Close">${icon("close")}</button>
+        <h3 id="quote-modal-title">Request a quote</h3>
+        <p class="form-note">Fill in your details, then send them to us on WhatsApp or by email.</p>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="f-name">Name <span>*</span></label>
+            <input id="f-name" name="name" type="text" autocomplete="name" required autofocus />
+          </div>
+          <div class="field">
+            <label for="f-company">Company / Brand</label>
+            <input id="f-company" name="company" type="text" autocomplete="organization" />
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="f-email">Email <span>*</span></label>
+            <input id="f-email" name="email" type="email" autocomplete="email" required />
+          </div>
+          <div class="field">
+            <label for="f-phone">Phone / WhatsApp</label>
+            <input id="f-phone" name="phone" type="tel" autocomplete="tel" />
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="f-country">Country</label>
+            <input id="f-country" name="country" type="text" autocomplete="country-name" />
+          </div>
+          <div class="field">
+            <label for="f-quantity">Approx. quantity</label>
+            <input id="f-quantity" name="quantity" type="text" placeholder="e.g. 50 pcs per design" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-collection">Collection</label>
+          <select id="f-collection" name="collection">
+            <option value="">Select a collection</option>${options}
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-message">Your requirements</label>
+          <textarea id="f-message" name="message" placeholder="Design references, metal, stones, finish, branding, timeline…"></textarea>
+        </div>
+        <div class="field">
+          <label for="f-files">Attachments</label>
+          <input id="f-files" name="files" type="file" multiple accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.zip,.stl,.3dm" />
+          <p class="field-hint">
+            ${icon("paperclip")}
+            Sketches, reference photos or CAD files. Once WhatsApp or your email opens, please attach these files
+            there too. All designs are kept strictly confidential.
+          </p>
+        </div>
+
+        <div class="form-buttons">
+          <button type="submit" value="whatsapp" class="btn btn-whatsapp">${icon("chat")}Send on WhatsApp</button>
+          <button type="submit" value="email" class="btn btn-dark">${icon("mail")}Send by Email</button>
+        </div>
+      </form>
+    </dialog>`,
+  );
+}
+
+// Opens the popup, pre-filled from a link such as index.html?collection=gemstone&design=GEM-004#contact
+function openQuoteModal(params = new URLSearchParams()) {
+  const modal = document.getElementById("quote-modal");
   const form = document.getElementById("quote-form");
-  if (!form) return;
+  if (!modal || !form) return;
 
-  // Fill the collection dropdown
-  const select = form.elements.collection;
-  COLLECTIONS.forEach((c) => select.insertAdjacentHTML("beforeend", `<option value="${c.name}">${c.name}</option>`));
-
-  // Pre-select from the link, e.g. index.html?collection=gemstone&design=GEM-004#contact
-  const params = new URLSearchParams(location.search);
   const chosen = COLLECTIONS.find((c) => c.slug === params.get("collection"));
-  if (chosen) select.value = chosen.name;
-  if (params.get("design")) {
-    form.elements.message.value = `I'm interested in design ${params.get("design")}. `;
+  if (chosen) form.elements.collection.value = chosen.name;
+  const design = params.get("design");
+  if (design && !form.elements.message.value.includes(design)) {
+    form.elements.message.value = `I'm interested in design ${design}. ${form.elements.message.value}`;
   }
+
+  modal.showModal();
+}
+
+function initQuoteForm() {
+  renderQuoteModal();
+  const modal = document.getElementById("quote-modal");
+  const form = document.getElementById("quote-form");
+
+  document.addEventListener("click", (event) => {
+    const link = event.target.closest('a[href*="#contact"]');
+    if (!link || link.hasAttribute("data-scroll-link")) return;
+    event.preventDefault();
+    openQuoteModal(new URL(link.href).searchParams);
+  });
+
+  // Close on the × button or a click on the dark backdrop
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal || event.target.closest("[data-close-modal]")) modal.close();
+  });
+
+  // Arriving from an old link like index.html?design=…#contact still opens the form
+  const params = new URLSearchParams(location.search);
+  if (location.hash === "#contact" && (params.has("collection") || params.has("design"))) openQuoteModal(params);
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();

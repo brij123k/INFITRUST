@@ -1415,6 +1415,65 @@ h4 {
   font-size: 1.9rem;
 }
 
+.quote-cta {
+  align-self: start;
+}
+
+/* Quote popup (built by main.js) */
+.quote-modal {
+  width: min(100% - 2rem, 44rem);
+  max-height: calc(100dvh - 2rem);
+  margin: auto;
+  border: 0;
+  border-radius: var(--radius);
+  padding: 0;
+  background: transparent;
+  overflow-y: auto;
+}
+
+.quote-modal::backdrop {
+  background-color: rgb(20 20 20 / 0.6);
+}
+
+.quote-modal[open] {
+  animation: modal-in 0.25s var(--ease);
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+body:has(.quote-modal[open]) {
+  overflow: hidden;
+}
+
+.quote-modal .quote-form {
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  place-items: center;
+  border-radius: 999px;
+  color: var(--ink-soft);
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.modal-close:hover {
+  background-color: var(--mist);
+  color: var(--ink);
+}
+
 .quote-form .form-note {
   margin-top: -0.5rem;
   font-size: 0.85rem;
