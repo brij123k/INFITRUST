@@ -473,62 +473,7 @@ h4 {
   color: var(--white);
 }
 
-/* ---------- Home hero ---------- */
-.hero {
-  position: relative;
-  overflow: hidden;
-  background-color: var(--mist);
-}
-
-.hero-grid {
-  display: grid;
-}
-
-.hero-text {
-  padding-block: 1.75rem 1.5rem;
-}
-
-.hero-title {
-  margin-top: 0.75rem;
-  font-size: clamp(2.2rem, 6vw, 4.4rem);
-  line-height: 1.04;
-}
-
-.hero-proof {
-  margin-top: 1.1rem;
-  display: grid;
-  gap: 0.45rem;
-  font-size: 0.95rem;
-  color: var(--ink-soft);
-}
-
-.hero-proof li {
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
-}
-
-.hero-proof .icon {
-  width: 1.1rem;
-  height: 1.1rem;
-  color: var(--bronze-deep);
-}
-
-.hero-text .hero-buttons {
-  margin-top: 1.5rem;
-  gap: 0.6rem;
-}
-
-/* Keep both buttons on one line on phones so the banner shows sooner */
-.hero-text .hero-buttons .btn {
-  padding-inline: 1.05rem;
-}
-
-.hero-title em {
-  font-style: italic;
-  color: var(--bronze-deep);
-}
-
+/* ---------- Shared banner text (inner pages) ---------- */
 .hero-sub {
   margin-top: 1.5rem;
   max-width: 34rem;
@@ -543,85 +488,345 @@ h4 {
   gap: 0.75rem;
 }
 
-.hero-media {
+/* ---------- Home hero ---------- */
+/* Navy + antique gold on warm cream, with the jewellery photo bleeding off the right edge */
+.hero {
+  --hero-bg: #f8f2e9;
+  --navy: #12233f;
+  --gold: #a87a2c;
+  --gold-text: #8a6322;
   position: relative;
-  min-height: 320px;
-  margin-inline: -1.25rem;
+  overflow: hidden;
+  background-color: var(--hero-bg);
+  color: var(--navy);
 }
 
-/* Rotating banner */
-.hero-slide {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  visibility: hidden;
-  transition:
-    opacity 0.9s var(--ease),
-    visibility 0s 0.9s;
+.hero-photo {
+  position: relative;
+  height: 300px;
 }
 
-.hero-slide.is-active {
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 0.9s var(--ease);
-}
-
-.hero-slide img {
-  position: absolute;
-  inset: 0;
+.hero-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 25%;
+  object-position: 50% 55%;
 }
 
-.hero-slide.product {
-  background-color: var(--white);
-}
-
-.hero-slide.product img {
-  object-fit: contain;
-  padding: 1.5rem 1.5rem 3.5rem;
-}
-
-.hero-slide-label {
+/* Fade the photo into the cream background */
+.hero-photo::after {
+  content: "";
   position: absolute;
-  bottom: 1rem;
-  left: 1.25rem;
-  display: inline-flex;
-  align-items: center;
-  border-radius: var(--radius);
-  background-color: rgba(255, 255, 255, 0.94);
-  padding: 0.5rem 0.85rem;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 55%, var(--hero-bg));
+}
+
+.hero-layout {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2.5rem;
+  padding-block: 0.5rem 3rem;
+}
+
+.hero-eyebrow {
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.38em;
   text-transform: uppercase;
-  box-shadow: var(--shadow);
 }
 
-.hero-dots {
-  position: absolute;
-  top: 1.25rem;
-  right: 1.25rem;
+.hero-title {
+  margin-top: 0.6rem;
+  font-size: clamp(2.5rem, 6.4vw, 5rem);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+}
+
+.hero-tagline {
   display: flex;
-  gap: 0.4rem;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 0.6rem;
+  font-size: 0.68em;
+  font-style: italic;
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--gold);
 }
 
-.hero-dots button {
-  width: 0.5rem;
-  height: 0.5rem;
+.hero-tagline::after {
+  content: "";
+  flex: 0 1 11rem;
+  min-width: 1.5rem;
+  height: 1px;
+  background-color: var(--gold);
+}
+
+.hero .hero-sub {
+  margin-top: 1.1rem;
+  max-width: 38rem;
+  font-size: 1.12rem;
+  line-height: 1.5;
+  color: var(--navy);
+}
+
+/* Six reasons to choose us, separated by thin gold rules */
+.hero-usps {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem 0;
+  margin-top: 2rem;
+}
+
+.hero-usps li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-inline: 0.5rem;
+  text-align: center;
+  font-size: 0.86rem;
+  line-height: 1.3;
+}
+
+.hero-usps strong {
+  margin-top: 0.6rem;
+  font-weight: 500;
+}
+
+.hero-usps li > span:last-child {
+  margin-top: 0.15rem;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+.hero-ring {
+  display: flex;
+  width: 3.6rem;
+  height: 3.6rem;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--gold);
   border-radius: 50%;
-  background-color: var(--sand);
-  transition:
-    width 0.3s,
-    background-color 0.3s;
+  background-color: rgba(255, 255, 255, 0.55);
+  color: var(--gold);
 }
 
-.hero-dots button[aria-selected="true"] {
-  width: 1.4rem;
-  border-radius: 0.25rem;
-  background-color: var(--ink);
+.hero-ring .icon {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+.hero-label {
+  margin-top: 2.25rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+/* Material & category thumbnails */
+.hero-materials {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem 0.5rem;
+  margin-top: 1.1rem;
+}
+
+.hero-materials a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-size: 0.8rem;
+  line-height: 1.25;
+  transition: color 0.2s;
+}
+
+.hero-materials a:hover {
+  color: var(--gold-text);
+}
+
+.hero-materials img {
+  width: 4.75rem;
+  height: 4.75rem;
+  margin-bottom: 0.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: transform 0.3s var(--ease);
+}
+
+.hero-materials a:hover img {
+  transform: scale(1.06);
+}
+
+.hero-materials small {
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+}
+
+.hero .hero-buttons {
+  margin-top: 2.25rem;
+  gap: 1rem;
+}
+
+.hero .btn {
+  border-radius: 2px;
+  padding: 1.05rem 2.1rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.24em;
+}
+
+.btn-navy {
+  background-color: var(--navy);
+  color: var(--white);
+}
+
+.btn-navy:hover {
+  background-color: var(--gold-text);
+}
+
+.btn-gold-outline {
+  border-color: var(--gold);
+  color: var(--navy);
+}
+
+.btn-gold-outline:hover {
+  background-color: var(--gold);
+  color: var(--white);
+}
+
+/* Certification badges + values line */
+.hero-badges {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+}
+
+.hero-badges li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-size: 0.86rem;
+  line-height: 1.25;
+}
+
+.hero-badge {
+  display: flex;
+  width: 4.75rem;
+  height: 4.75rem;
+  margin-bottom: 0.55rem;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  background-color: var(--white);
+  color: var(--gold-text);
+}
+
+.hero-badge b {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+.hero-badge .icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.hero-badge-img img {
+  width: 84%;
+  height: auto;
+}
+
+.hero-values {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 1.25rem;
+  border-top: 1px solid var(--gold);
+  padding-top: 0.9rem;
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.hero-values span {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.hero-values i {
+  width: 1px;
+  height: 0.8rem;
+  background-color: var(--gold);
+}
+
+@media (min-width: 640px) {
+  .hero-photo {
+    height: 380px;
+  }
+
+  .hero-usps {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .hero-materials {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+
+  .hero-materials img {
+    width: 4.25rem;
+    height: 4.25rem;
+  }
+}
+
+/* Desktop: photo sits behind the right half, certifications bottom-right */
+@media (min-width: 1100px) {
+  .hero-photo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 46%;
+    height: 78%;
+  }
+
+  .hero-photo::after {
+    background:
+      linear-gradient(to right, var(--hero-bg), transparent 30%),
+      linear-gradient(to bottom, transparent 70%, var(--hero-bg));
+  }
+
+  .hero-layout {
+    grid-template-columns: minmax(0, 1fr) 25rem;
+    gap: 2rem;
+    padding-block: 3.5rem 3rem;
+  }
+
+  .hero-text {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-usps {
+    grid-template-columns: repeat(6, 1fr);
+    max-width: 50rem;
+  }
+
+  .hero-usps li + li {
+    border-left: 1px solid rgba(168, 122, 44, 0.45);
+  }
+
+  .hero-certs {
+    align-self: end;
+    border-left: 1px solid rgba(168, 122, 44, 0.45);
+    padding-left: 1.5rem;
+  }
 }
 
 /* Scrolling trust strip under the hero */
@@ -1988,15 +2193,6 @@ body:has(.quote-modal[open]) {
     padding-inline: 1.75rem;
   }
 
-  .hero-media {
-    min-height: 440px;
-    margin-inline: -1.75rem;
-  }
-
-  .hero-text .hero-buttons .btn {
-    padding-inline: 1.75rem;
-  }
-
   .filters {
     margin-inline: -1.75rem;
     padding-inline: 1.75rem;
@@ -2056,24 +2252,6 @@ body:has(.quote-modal[open]) {
 
   .header-actions .btn {
     display: inline-flex;
-  }
-
-  .hero-grid {
-    grid-template-columns: 1.05fr 1fr;
-    min-height: min(calc(100vh - var(--header-h) - 36px), 760px);
-  }
-
-  .hero-text {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-block: 4rem;
-    padding-right: 3rem;
-  }
-
-  .hero-media {
-    min-height: 0;
-    margin-inline: 0 calc((100vw - min(100vw, 76rem)) / -2 - 1.75rem);
   }
 
   .features {
@@ -2213,10 +2391,5 @@ body:has(.quote-modal[open]) {
 
   .trust-track {
     animation: none;
-  }
-
-  .hero-slide,
-  .hero-slide.is-active {
-    transition: none;
   }
 }

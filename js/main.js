@@ -2,7 +2,7 @@
  * Infitrust International — shared site script
  * - Inserts the icon sprite, header and footer on every page (edit them once, here)
  * - Mobile menu, scroll reveal, and the quote form (WhatsApp / email)
- * - Home hero banner + trust strip, and the design filters on collection pages
+ * - Home trust strip, and the design filters on collection pages
  */
 
 /* ---------- Contact details (used across the site) ---------- */
@@ -54,6 +54,14 @@ const ICONS = {
     '<path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/>',
   clock: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
   card: '<rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/>',
+  factory:
+    '<path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M17 18h1"/><path d="M12 18h1"/><path d="M7 18h1"/>',
+  settings:
+    '<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>',
+  users:
+    '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+  "clipboard-check":
+    '<rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/>',
   sparkles:
     '<path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/>',
 };
@@ -216,38 +224,6 @@ function initReveal() {
     { rootMargin: "0px 0px -8% 0px", threshold: 0.08 },
   );
   nodes.forEach((n) => observer.observe(n));
-}
-
-/* ---------- Home hero: rotating banner ---------- */
-function initHeroSlider() {
-  const slider = document.querySelector(".hero-slider");
-  if (!slider) return;
-  const slides = Array.from(slider.querySelectorAll(".hero-slide"));
-  const dots = slider.querySelector(".hero-dots");
-  if (slides.length < 2) return;
-
-  let current = 0;
-  const show = (index) => {
-    current = (index + slides.length) % slides.length;
-    slides.forEach((s, i) => s.classList.toggle("is-active", i === current));
-    dots.querySelectorAll("button").forEach((d, i) => d.setAttribute("aria-selected", String(i === current)));
-  };
-
-  slides.forEach((_, i) => {
-    dots.insertAdjacentHTML(
-      "beforeend",
-      `<button type="button" role="tab" aria-label="Slide ${i + 1}" aria-selected="${i === 0}"></button>`,
-    );
-  });
-  dots.querySelectorAll("button").forEach((d, i) => d.addEventListener("click", () => show(i)));
-
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  let timer = setInterval(() => show(current + 1), 3500);
-  slider.addEventListener("mouseenter", () => clearInterval(timer));
-  slider.addEventListener("mouseleave", () => {
-    clearInterval(timer);
-    timer = setInterval(() => show(current + 1), 3500);
-  });
 }
 
 /* ---------- Trust strip: duplicate the items so the scroll loops seamlessly ---------- */
@@ -568,7 +544,6 @@ renderFooter();
 initMenu();
 initProductLinks();
 initReveal();
-initHeroSlider();
 initTrustMarquee();
 initFilters();
 initProductPage();
