@@ -2,7 +2,7 @@
  * Infitrust International — shared site script
  * - Inserts the icon sprite, header and footer on every page (edit them once, here)
  * - Mobile menu, scroll reveal, and the quote form (WhatsApp / email)
- * - Home trust strip, and the design filters on collection pages
+ * - Home hero banner + trust strip, and the design filters on collection pages
  */
 
 /* ---------- Contact details (used across the site) ---------- */
@@ -52,16 +52,14 @@ const ICONS = {
   lock: '<rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
   paperclip:
     '<path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/>',
-  clock: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
-  card: '<rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/>',
   factory:
     '<path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M17 18h1"/><path d="M12 18h1"/><path d="M7 18h1"/>',
   settings:
     '<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>',
   users:
     '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
-  "clipboard-check":
-    '<rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/>',
+  clock: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+  card: '<rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/>',
   sparkles:
     '<path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/>',
 };
@@ -116,7 +114,7 @@ function renderHeader() {
           <a href="index.html#process">How to Order</a>
           <a href="index.html#about">About Us</a>
           <a href="index.html#faq">FAQ</a>
-          <a href="index.html#contact" data-scroll-link>Contact</a>
+          <a href="index.html#contact">Contact</a>
         </nav>
 
         <div class="header-actions">
@@ -136,7 +134,7 @@ function renderHeader() {
           <a href="index.html#process">How to Order</a>
           <a href="index.html#about">About Us</a>
           <a href="index.html#faq">FAQ</a>
-          <a href="index.html#contact" data-scroll-link>Contact</a>
+          <a href="index.html#contact">Contact</a>
           <a href="index.html#contact" class="btn btn-dark">Get a Quote</a>
         </nav>
       </div>
@@ -224,6 +222,69 @@ function initReveal() {
     { rootMargin: "0px 0px -8% 0px", threshold: 0.08 },
   );
   nodes.forEach((n) => observer.observe(n));
+}
+
+/* ---------- Home hero: rotating banner ---------- */
+function initHeroSlider() {
+  const slider = document.querySelector(".hero-slider");
+  if (!slider) return;
+  const slides = Array.from(slider.querySelectorAll(".hero-slide"));
+  const dots = slider.querySelector(".hero-dots");
+  if (slides.length < 2) return;
+
+  // Slides after the first carry data-src, so phones only download a slide just before it is shown
+  const load = (slide) => {
+    const img = slide && slide.querySelector("img[data-src]");
+    if (!img) return;
+    img.src = img.dataset.src;
+    img.removeAttribute("data-src");
+  };
+
+  let current = 0;
+  const show = (index) => {
+    current = (index + slides.length) % slides.length;
+    load(slides[current]);
+    load(slides[(current + 1) % slides.length]);
+    slides.forEach((s, i) => s.classList.toggle("is-active", i === current));
+    dots.querySelectorAll("button").forEach((d, i) => d.setAttribute("aria-selected", String(i === current)));
+  };
+
+  // Fetch the next slide once the page has finished loading
+  window.addEventListener("load", () => load(slides[1]), { once: true });
+
+  // Swipe left / right on touch screens
+  let touchX = null;
+  slider.addEventListener("touchstart", (e) => (touchX = e.touches[0].clientX), { passive: true });
+  slider.addEventListener("touchend", (e) => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    touchX = null;
+    if (Math.abs(dx) < 40) return;
+    show(current + (dx < 0 ? 1 : -1));
+    restart();
+  });
+
+  slides.forEach((_, i) => {
+    dots.insertAdjacentHTML(
+      "beforeend",
+      `<button type="button" role="tab" aria-label="Slide ${i + 1}" aria-selected="${i === 0}"></button>`,
+    );
+  });
+  dots.querySelectorAll("button").forEach((d, i) => d.addEventListener("click", () => show(i)));
+
+  const autoplay = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let timer = null;
+  const stop = () => clearInterval(timer);
+  function restart() {
+    stop();
+    if (autoplay && !document.hidden) timer = setInterval(() => show(current + 1), 4000);
+  }
+
+  restart();
+  // Pause on mouse hover only — a tap on a phone shouldn't stop the banner for good
+  slider.addEventListener("pointerenter", (e) => e.pointerType === "mouse" && stop());
+  slider.addEventListener("pointerleave", (e) => e.pointerType === "mouse" && restart());
+  document.addEventListener("visibilitychange", restart);
 }
 
 /* ---------- Trust strip: duplicate the items so the scroll loops seamlessly ---------- */
@@ -397,114 +458,22 @@ function initFilters() {
   });
 }
 
-/* ---------- Quote form: opens as a popup on every page, sends the enquiry via WhatsApp or email ---------- */
-// Any link to "#contact" (Get a Quote, Enquire, …) opens the popup instead of leaving the page.
-// Links marked data-scroll-link (the "Contact" menu item) still scroll to the contact section.
-function renderQuoteModal() {
-  const options = COLLECTIONS.map((c) => `<option value="${c.name}">${c.name}</option>`).join("");
-  document.body.insertAdjacentHTML(
-    "beforeend",
-    `<dialog class="quote-modal" id="quote-modal" aria-labelledby="quote-modal-title">
-      <form id="quote-form" class="quote-form">
-        <button type="button" class="modal-close" data-close-modal aria-label="Close">${icon("close")}</button>
-        <h3 id="quote-modal-title">Request a quote</h3>
-        <p class="form-note">Fill in your details, then send them to us on WhatsApp or by email.</p>
-
-        <div class="field-row">
-          <div class="field">
-            <label for="f-name">Name <span>*</span></label>
-            <input id="f-name" name="name" type="text" autocomplete="name" required autofocus />
-          </div>
-          <div class="field">
-            <label for="f-company">Company / Brand</label>
-            <input id="f-company" name="company" type="text" autocomplete="organization" />
-          </div>
-        </div>
-        <div class="field-row">
-          <div class="field">
-            <label for="f-email">Email <span>*</span></label>
-            <input id="f-email" name="email" type="email" autocomplete="email" required />
-          </div>
-          <div class="field">
-            <label for="f-phone">Phone / WhatsApp</label>
-            <input id="f-phone" name="phone" type="tel" autocomplete="tel" />
-          </div>
-        </div>
-        <div class="field-row">
-          <div class="field">
-            <label for="f-country">Country</label>
-            <input id="f-country" name="country" type="text" autocomplete="country-name" />
-          </div>
-          <div class="field">
-            <label for="f-quantity">Approx. quantity</label>
-            <input id="f-quantity" name="quantity" type="text" placeholder="e.g. 50 pcs per design" />
-          </div>
-        </div>
-        <div class="field">
-          <label for="f-collection">Collection</label>
-          <select id="f-collection" name="collection">
-            <option value="">Select a collection</option>${options}
-          </select>
-        </div>
-        <div class="field">
-          <label for="f-message">Your requirements</label>
-          <textarea id="f-message" name="message" placeholder="Design references, metal, stones, finish, branding, timeline…"></textarea>
-        </div>
-        <div class="field">
-          <label for="f-files">Attachments</label>
-          <input id="f-files" name="files" type="file" multiple accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.zip,.stl,.3dm" />
-          <p class="field-hint">
-            ${icon("paperclip")}
-            Sketches, reference photos or CAD files. Once WhatsApp or your email opens, please attach these files
-            there too. All designs are kept strictly confidential.
-          </p>
-        </div>
-
-        <div class="form-buttons">
-          <button type="submit" value="whatsapp" class="btn btn-whatsapp">${icon("chat")}Send on WhatsApp</button>
-          <button type="submit" value="email" class="btn btn-dark">${icon("mail")}Send by Email</button>
-        </div>
-      </form>
-    </dialog>`,
-  );
-}
-
-// Opens the popup, pre-filled from a link such as index.html?collection=gemstone&design=GEM-004#contact
-function openQuoteModal(params = new URLSearchParams()) {
-  const modal = document.getElementById("quote-modal");
-  const form = document.getElementById("quote-form");
-  if (!modal || !form) return;
-
-  const chosen = COLLECTIONS.find((c) => c.slug === params.get("collection"));
-  if (chosen) form.elements.collection.value = chosen.name;
-  const design = params.get("design");
-  if (design && !form.elements.message.value.includes(design)) {
-    form.elements.message.value = `I'm interested in design ${design}. ${form.elements.message.value}`;
-  }
-
-  modal.showModal();
-}
-
+/* ---------- Quote form: sends the enquiry via WhatsApp or email ---------- */
 function initQuoteForm() {
-  renderQuoteModal();
-  const modal = document.getElementById("quote-modal");
   const form = document.getElementById("quote-form");
+  if (!form) return;
 
-  document.addEventListener("click", (event) => {
-    const link = event.target.closest('a[href*="#contact"]');
-    if (!link || link.hasAttribute("data-scroll-link")) return;
-    event.preventDefault();
-    openQuoteModal(new URL(link.href).searchParams);
-  });
+  // Fill the collection dropdown
+  const select = form.elements.collection;
+  COLLECTIONS.forEach((c) => select.insertAdjacentHTML("beforeend", `<option value="${c.name}">${c.name}</option>`));
 
-  // Close on the × button or a click on the dark backdrop
-  modal.addEventListener("click", (event) => {
-    if (event.target === modal || event.target.closest("[data-close-modal]")) modal.close();
-  });
-
-  // Arriving from an old link like index.html?design=…#contact still opens the form
+  // Pre-select from the link, e.g. index.html?collection=gemstone&design=GEM-004#contact
   const params = new URLSearchParams(location.search);
-  if (location.hash === "#contact" && (params.has("collection") || params.has("design"))) openQuoteModal(params);
+  const chosen = COLLECTIONS.find((c) => c.slug === params.get("collection"));
+  if (chosen) select.value = chosen.name;
+  if (params.get("design")) {
+    form.elements.message.value = `I'm interested in design ${params.get("design")}. `;
+  }
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -544,6 +513,7 @@ renderFooter();
 initMenu();
 initProductLinks();
 initReveal();
+initHeroSlider();
 initTrustMarquee();
 initFilters();
 initProductPage();

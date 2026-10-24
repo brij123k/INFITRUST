@@ -12,10 +12,15 @@
     <meta property="og:description" content="Your trusted partner in fine jewellery manufacturing &amp; sourcing from India." />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="assets/company/hero-model.jpg" />
+    <meta name="theme-color" content="#202020" />
+    <!-- The site is designed light; ask phone browsers not to auto-darken it -->
+    <meta name="color-scheme" content="only light" />
     <link rel="icon" href="favicon.png" type="image/png" />
+    <link rel="preload" as="image" href="assets/products/lab-grown-diamond/cover.jpg" fetchpriority="high" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/@fontsource/open-sauce-one@5/400.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/@fontsource/open-sauce-one@5/500.css" rel="stylesheet" />
@@ -27,54 +32,69 @@
 
     <main>
       <!-- ============ HERO ============ -->
-      <!-- Who we are (title) · what we make (materials) · why us (USPs + certifications) -->
+      <!-- Phones: title · trust icons · banner · materials + buttons. Desktop: text on the left, banner on the right -->
       <section class="hero">
-        <div class="hero-photo">
-          <img src="assets/hero/hero-jewellery.jpg" alt="Gold and diamond rings, earrings, a sapphire pendant and loose emerald, sapphire and ruby beside a globe" width="508" height="605" />
-        </div>
-
-        <div class="shell hero-layout">
+        <div class="shell hero-grid">
           <div class="hero-text">
-            <p class="hero-eyebrow">Your trusted</p>
-            <h1 class="hero-title">Indian Jewellery Sourcing Partner <span class="hero-tagline">to build your Brand</span></h1>
-            <p class="hero-sub">925 Silver, Brass, Gold Metals, Diamonds, Gemstones, Fashion, Demi&#8209;Fine &amp; Fine Jewellery</p>
+            <p class="eyebrow">For jewellery brands, retailers &amp; wholesalers worldwide</p>
+            <h1 class="hero-title">Your collection, <em>made in India</em> — under your brand</h1>
 
-            <ul class="hero-usps">
-              <li><span class="hero-ring"><svg class="icon"><use href="#i-gem"></use></svg></span><strong>Low MOQ</strong><span>Start small, scale fast</span></li>
-              <li><span class="hero-ring"><svg class="icon"><use href="#i-shield"></use></svg></span><strong>GIA &amp; IGI Certified</strong><span>Diamonds &amp; gems on request</span></li>
-              <li><span class="hero-ring"><svg class="icon"><use href="#i-globe"></use></svg></span><strong>Exporting to 25+ Countries</strong><span>Fully insured</span></li>
-              <li><span class="hero-ring"><svg class="icon"><use href="#i-factory"></use></svg></span><strong>Audited Factories</strong><span>RJC &amp; Sedex compliant</span></li>
-              <li><span class="hero-ring"><svg class="icon"><use href="#i-settings"></use></svg></span><strong>High Quality Manufacturing</strong><span>Maintaining timeline</span></li>
-              <li><span class="hero-ring"><svg class="icon"><use href="#i-users"></use></svg></span><strong>GJEPC Member</strong><span>Trusted Indian exporter</span></li>
+            <!-- One row of trust icons (swipes sideways on small phones) -->
+            <ul class="hero-usps" aria-label="Why choose Infitrust">
+              <li><span class="hero-ring"><svg class="icon"><use href="#i-shield"></use></svg></span>Certified GIA &amp; IGI Diamonds &amp; Gemstones</li>
+              <li><span class="hero-ring"><svg class="icon"><use href="#i-globe"></use></svg></span>Exporting to 25+ Countries</li>
+              <li><span class="hero-ring"><svg class="icon"><use href="#i-factory"></use></svg></span>Audited Factories</li>
+              <li><span class="hero-ring"><svg class="icon"><use href="#i-settings"></use></svg></span>High Quality Manufacturing</li>
+              <li><span class="hero-ring"><svg class="icon"><use href="#i-users"></use></svg></span>GJEPC Member</li>
             </ul>
-
-            <p class="hero-label">Wide range of materials &amp; jewellery categories</p>
-            <ul class="hero-materials">
-              <li><a href="sterling-silver.html"><img src="assets/hero/materials/silver.jpg" alt="" width="184" height="184" />925 Sterling Silver</a></li>
-              <li><a href="#custom"><img src="assets/hero/materials/brass.jpg" alt="" width="184" height="184" />Brass</a></li>
-              <li><a href="lab-grown-diamond.html"><img src="assets/hero/materials/gold.jpg" alt="" width="184" height="184" />Gold Metals<small>9K / 14K / 18K</small></a></li>
-              <li><a href="lab-grown-diamond.html"><img src="assets/hero/materials/diamond.jpg" alt="" width="184" height="184" />Diamonds<small>Natural &amp; Lab</small></a></li>
-              <li><a href="gemstone.html"><img src="assets/hero/materials/gemstone.jpg" alt="" width="184" height="184" />Gemstones<small>Semi-Precious &amp; Precious</small></a></li>
-              <li><a href="hip-hop-iced-out.html"><img src="assets/hero/materials/fashion.jpg" alt="" width="184" height="184" />Fashion Jewellery</a></li>
-              <li><a href="demi-fine-vermeil.html"><img src="assets/hero/materials/demi-fine.jpg" alt="" width="184" height="184" />Demi-Fine Jewellery</a></li>
-              <li><a href="lab-grown-diamond.html"><img src="assets/hero/materials/fine.jpg" alt="" width="184" height="184" />Fine Jewellery</a></li>
-            </ul>
-
-            <div class="hero-buttons">
-              <a href="#contact" class="btn btn-navy">Get a Quote <svg class="icon"><use href="#i-arrow-right"></use></svg></a>
-              <a href="#collections" class="btn btn-gold-outline">View Collections <svg class="icon"><use href="#i-arrow-right"></use></svg></a>
-            </div>
           </div>
 
-          <aside class="hero-certs" aria-label="Certifications">
-            <ul class="hero-badges">
-              <li><span class="hero-badge"><b>RJC</b></span>RJC Compliant</li>
-              <li><span class="hero-badge"><b>Sedex</b></span>Sedex Compliant</li>
-              <li><span class="hero-badge hero-badge-img"><img src="assets/certs/gjepc.png" alt="" /></span>GJEPC Member</li>
-              <li><span class="hero-badge"><svg class="icon"><use href="#i-clipboard-check"></use></svg></span>Audited Factories</li>
+          <!-- Rotating banner: add or remove slides freely; "product" slides sit on white -->
+          <div class="hero-media hero-slider" aria-roledescription="carousel" aria-label="Our collections">
+            <a href="lab-grown-diamond.html" class="hero-slide is-active">
+              <img src="assets/products/lab-grown-diamond/cover.jpg" alt="Model wearing a lab-grown diamond bracelet" width="1000" height="1000" fetchpriority="high" decoding="async" />
+              <span class="hero-slide-label">Lab-Grown Diamond · 9K–18K Gold</span>
+            </a>
+            <a href="sterling-silver.html" class="hero-slide product">
+              <img data-src="assets/products/sterling-silver/cover.jpg" alt="925 sterling silver lab diamond halo ring" width="1000" height="1000" decoding="async" />
+              <span class="hero-slide-label">925 Sterling Silver · Lab Diamond</span>
+            </a>
+            <a href="hip-hop-iced-out.html" class="hero-slide product">
+              <img data-src="assets/products/hip-hop-iced-out/cover.jpg" alt="Iced-out gold eagle pendant" width="1000" height="1000" decoding="async" />
+              <span class="hero-slide-label">Hip Hop · Moissanite &amp; Iced-Out</span>
+            </a>
+            <a href="demi-fine-vermeil.html" class="hero-slide">
+              <img data-src="assets/products/demi-fine-vermeil/cover.jpg" alt="Stackable pavé band worn on the hand" width="1000" height="1000" decoding="async" />
+              <span class="hero-slide-label">Demi-Fine &amp; Gold Vermeil</span>
+            </a>
+            <a href="gemstone.html" class="hero-slide product">
+              <img data-src="assets/products/gemstone/cover.jpg" alt="Sapphire and diamond swirl earrings in rose gold" width="1000" height="1000" decoding="async" />
+              <span class="hero-slide-label">Gemstone &amp; Colored Stone</span>
+            </a>
+            <a href="custom-private-label.html" class="hero-slide">
+              <img data-src="assets/products/custom-private-label/cover.jpg" alt="Model wearing a custom filigree pendant" width="667" height="1000" decoding="async" />
+              <span class="hero-slide-label">Custom &amp; Private Label</span>
+            </a>
+            <div class="hero-dots" role="tablist" aria-label="Choose slide"></div>
+          </div>
+
+          <div class="hero-extra">
+            <p class="hero-label">Wide range of materials &amp; jewellery categories</p>
+            <ul class="hero-materials">
+              <li><a href="sterling-silver.html"><img src="assets/hero/materials/silver.jpg" alt="" width="184" height="184" decoding="async" />925 Sterling Silver</a></li>
+              <li><a href="#custom"><img src="assets/hero/materials/brass.jpg" alt="" width="184" height="184" decoding="async" />Brass</a></li>
+              <li><a href="lab-grown-diamond.html"><img src="assets/hero/materials/gold.jpg" alt="" width="184" height="184" decoding="async" />Gold Metals<small>9K / 14K / 18K</small></a></li>
+              <li><a href="lab-grown-diamond.html"><img src="assets/hero/materials/diamond.jpg" alt="" width="184" height="184" decoding="async" />Diamonds<small>Natural &amp; Lab</small></a></li>
+              <li><a href="gemstone.html"><img src="assets/hero/materials/gemstone.jpg" alt="" width="184" height="184" decoding="async" />Gemstones<small>Semi-Precious &amp; Precious</small></a></li>
+              <li><a href="hip-hop-iced-out.html"><img src="assets/hero/materials/fashion.jpg" alt="" width="184" height="184" decoding="async" />Fashion Jewellery</a></li>
+              <li><a href="demi-fine-vermeil.html"><img src="assets/hero/materials/demi-fine.jpg" alt="" width="184" height="184" decoding="async" />Demi-Fine Jewellery</a></li>
+              <li><a href="lab-grown-diamond.html"><img src="assets/hero/materials/fine.jpg" alt="" width="184" height="184" decoding="async" />Fine Jewellery</a></li>
             </ul>
-            <p class="hero-values"><span>Ethical Sourcing<i></i>High Quality</span><span>On-Time Delivery<i></i>Global Standards</span></p>
-          </aside>
+            <div class="hero-buttons">
+              <a href="#contact" class="btn btn-dark">Get a Quote <svg class="icon"><use href="#i-arrow-right"></use></svg></a>
+              <a href="#collections" class="btn btn-outline">View Collections <svg class="icon"><use href="#i-arrow-right"></use></svg></a>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -157,7 +177,7 @@
 
           <div class="collections">
             <a href="sterling-silver.html" class="collection-card reveal">
-              <div class="collection-img"><img src="assets/products/sterling-silver/cover.jpg" alt="925 sterling silver lab diamond halo ring" loading="lazy" /></div>
+              <div class="collection-img"><img src="assets/products/sterling-silver/cover.jpg" alt="925 sterling silver lab diamond halo ring" width="600" height="450" loading="lazy" decoding="async" /></div>
               <div class="collection-body">
                 <h3>925 Sterling Silver Lab Diamond</h3>
                 <p class="collection-tags">Tennis · Pendants · Earrings · Rings</p>
@@ -166,7 +186,7 @@
               </div>
             </a>
             <a href="lab-grown-diamond.html" class="collection-card reveal">
-              <div class="collection-img"><img src="assets/products/lab-grown-diamond/cover.jpg" alt="Model wearing a lab-grown diamond bangle" loading="lazy" /></div>
+              <div class="collection-img"><img src="assets/products/lab-grown-diamond/cover.jpg" alt="Model wearing a lab-grown diamond bangle" width="600" height="450" loading="lazy" decoding="async" /></div>
               <div class="collection-body">
                 <h3>Lab Grown Diamond Fine Jewelry</h3>
                 <p class="collection-tags">9K · 14K · 18K Gold · Solitaires · Studs · Tennis</p>
@@ -175,7 +195,7 @@
               </div>
             </a>
             <a href="demi-fine-vermeil.html" class="collection-card reveal">
-              <div class="collection-img"><img src="assets/products/demi-fine-vermeil/cover.jpg" alt="Stackable pavé band worn on the hand" loading="lazy" /></div>
+              <div class="collection-img"><img src="assets/products/demi-fine-vermeil/cover.jpg" alt="Stackable pavé band worn on the hand" width="600" height="450" loading="lazy" decoding="async" /></div>
               <div class="collection-body">
                 <h3>Demi-Fine &amp; Vermeil Jewelry</h3>
                 <p class="collection-tags">Gold Vermeil · Micron Plated · Everyday Luxury</p>
@@ -184,7 +204,7 @@
               </div>
             </a>
             <a href="gemstone.html" class="collection-card reveal">
-              <div class="collection-img"><img src="assets/products/gemstone/cover.jpg" alt="Sapphire and diamond swirl earrings in rose gold" loading="lazy" /></div>
+              <div class="collection-img"><img src="assets/products/gemstone/cover.jpg" alt="Sapphire and diamond swirl earrings in rose gold" width="600" height="450" loading="lazy" decoding="async" /></div>
               <div class="collection-body">
                 <h3>Gemstone &amp; Colored Stone Jewelry</h3>
                 <p class="collection-tags">Natural · Semi-Precious · Lab Created</p>
@@ -193,7 +213,7 @@
               </div>
             </a>
             <a href="hip-hop-iced-out.html" class="collection-card reveal">
-              <div class="collection-img"><img src="assets/products/hip-hop-iced-out/cover.jpg" alt="Iced-out gold eagle pendant" loading="lazy" /></div>
+              <div class="collection-img"><img src="assets/products/hip-hop-iced-out/cover.jpg" alt="Iced-out gold eagle pendant" width="600" height="450" loading="lazy" decoding="async" /></div>
               <div class="collection-body">
                 <h3>Hip Hop &amp; Iced-Out Jewelry</h3>
                 <p class="collection-tags">Cuban Chains · Pendants · Bracelets</p>
@@ -202,7 +222,7 @@
               </div>
             </a>
             <a href="custom-private-label.html" class="collection-card reveal">
-              <div class="collection-img"><img src="assets/products/custom-private-label/cover.jpg" alt="Model wearing a custom filigree pendant" loading="lazy" /></div>
+              <div class="collection-img"><img src="assets/products/custom-private-label/cover.jpg" alt="Model wearing a custom filigree pendant" width="600" height="450" loading="lazy" decoding="async" /></div>
               <div class="collection-body">
                 <h3>Custom &amp; Private Label Jewelry</h3>
                 <p class="collection-tags">Your Design · Our Expertise · Your Brand</p>
@@ -263,15 +283,15 @@
         <div class="shell split founder">
           <div class="split-media reveal">
             <div class="founder-photo">
-              <img src="assets/company/founder-portrait.jpg" alt="Manisha Mehta, Founder of Infitrust International" width="410" height="700" loading="lazy" />
+              <img src="assets/company/founder-portrait.jpg" alt="Manisha Mehta, Founder of Infitrust International" width="410" height="700" loading="lazy" decoding="async" />
             </div>
             <p class="founder-name">Manisha Mehta<span>Founder, Infitrust International</span></p>
             <ul class="founder-logos">
-              <li><img src="assets/certs/usc-marshall.png" alt="USC Marshall School of Business" loading="lazy" /></li>
-              <li><img src="assets/certs/iimb.svg" alt="IIM Bangalore" loading="lazy" /></li>
-              <li class="founder-logo-gs"><img src="assets/certs/goldman-sachs.svg" alt="Goldman Sachs" loading="lazy" /><span>10,000 Women</span></li>
-              <li><img src="assets/certs/gia.png" alt="GIA — Gemological Institute of America" loading="lazy" /></li>
-              <li><img src="assets/certs/igi.png" alt="IGI — International Gemological Institute" loading="lazy" /></li>
+              <li><img src="assets/certs/usc-marshall.png" alt="USC Marshall School of Business" loading="lazy" decoding="async" /></li>
+              <li><img src="assets/certs/iimb.svg" alt="IIM Bangalore" loading="lazy" decoding="async" /></li>
+              <li class="founder-logo-gs"><img src="assets/certs/goldman-sachs.svg" alt="Goldman Sachs" loading="lazy" decoding="async" /><span>10,000 Women</span></li>
+              <li><img src="assets/certs/gia.png" alt="GIA — Gemological Institute of America" loading="lazy" decoding="async" /></li>
+              <li><img src="assets/certs/igi.png" alt="IGI — International Gemological Institute" loading="lazy" decoding="async" /></li>
             </ul>
           </div>
 
@@ -317,32 +337,32 @@
 
           <ol class="steps">
             <li class="step reveal">
-              <div class="step-img"><img src="assets/company/step-design.jpg" alt="Jewellery design sketches" loading="lazy" /></div>
+              <div class="step-img"><img src="assets/company/step-design.jpg" alt="Jewellery design sketches" loading="lazy" decoding="async" /></div>
               <h3>Design Development</h3>
               <p>Your sketch, reference or idea becomes a detailed design.</p>
             </li>
             <li class="step reveal">
-              <div class="step-img"><img src="assets/company/step-cad.jpg" alt="Ring being modelled in CAD software" loading="lazy" /></div>
+              <div class="step-img"><img src="assets/company/step-cad.jpg" alt="Ring being modelled in CAD software" loading="lazy" decoding="async" /></div>
               <h3>CAD Development</h3>
               <p>A precise 3D model for your approval before anything is made.</p>
             </li>
             <li class="step reveal">
-              <div class="step-img"><img src="assets/company/step-sample.jpg" alt="Jewellery samples on display busts" loading="lazy" /></div>
+              <div class="step-img"><img src="assets/company/step-sample.jpg" alt="Jewellery samples on display busts" loading="lazy" decoding="async" /></div>
               <h3>Sample Showcase</h3>
               <p>We share samples, photos and videos for sign-off.</p>
             </li>
             <li class="step reveal">
-              <div class="step-img"><img src="assets/company/step-production.jpg" alt="Craftsman setting stones in a ring" loading="lazy" /></div>
+              <div class="step-img"><img src="assets/company/step-production.jpg" alt="Craftsman setting stones in a ring" loading="lazy" decoding="async" /></div>
               <h3>Production</h3>
               <p>Skilled artisans craft your order in audited factories.</p>
             </li>
             <li class="step reveal">
-              <div class="step-img"><img src="assets/company/step-quality.jpg" alt="Gemologist inspecting a diamond with a loupe" loading="lazy" /></div>
+              <div class="step-img"><img src="assets/company/step-quality.jpg" alt="Gemologist inspecting a diamond with a loupe" loading="lazy" decoding="async" /></div>
               <h3>Quality Test</h3>
               <p>Every piece is checked; IGI, GIA or BIS certification on request.</p>
             </li>
             <li class="step reveal">
-              <div class="step-img"><img src="assets/company/step-shipment.jpg" alt="Packed cartons ready for shipment" loading="lazy" /></div>
+              <div class="step-img"><img src="assets/company/step-shipment.jpg" alt="Packed cartons ready for shipment" loading="lazy" decoding="async" /></div>
               <h3>Shipment Ready</h3>
               <p>Securely packed, insured and shipped by express courier.</p>
             </li>
@@ -393,19 +413,19 @@
 
           <div class="infra-grid">
             <figure class="reveal">
-              <img src="assets/company/infra-building.jpg" alt="Infitrust International office building in Bengaluru" loading="lazy" />
+              <img src="assets/company/infra-building.jpg" alt="Infitrust International office building in Bengaluru" loading="lazy" decoding="async" />
               <figcaption>Bengaluru office</figcaption>
             </figure>
             <figure class="reveal">
-              <img src="assets/company/infra-meeting.jpg" alt="Infitrust team in a client meeting" loading="lazy" />
+              <img src="assets/company/infra-meeting.jpg" alt="Infitrust team in a client meeting" loading="lazy" decoding="async" />
               <figcaption>Client consultation</figcaption>
             </figure>
             <figure class="reveal">
-              <img src="assets/company/infra-lab.jpg" alt="Quality inspection of diamonds in the lab" loading="lazy" />
+              <img src="assets/company/infra-lab.jpg" alt="Quality inspection of diamonds in the lab" loading="lazy" decoding="async" />
               <figcaption>Quality inspection</figcaption>
             </figure>
             <figure class="reveal">
-              <img src="assets/company/infra-reception.jpg" alt="Infitrust International reception" loading="lazy" />
+              <img src="assets/company/infra-reception.jpg" alt="Infitrust International reception" loading="lazy" decoding="async" />
               <figcaption>Reception</figcaption>
             </figure>
           </div>
@@ -445,10 +465,10 @@
           <div class="reveal">
             <p class="section-lead" style="margin-top: 0">Certifying laboratories &amp; memberships</p>
             <ul class="cert-row">
-              <li><img src="assets/certs/gia.png" alt="GIA — Gemological Institute of America" loading="lazy" /></li>
-              <li><img src="assets/certs/igi.png" alt="IGI — International Gemological Institute" loading="lazy" /></li>
-              <li><img src="assets/certs/gjepc.png" alt="GJEPC India" loading="lazy" /></li>
-              <li class="cert-bis"><img src="assets/certs/bis.svg" alt="BIS — Bureau of Indian Standards" loading="lazy" /><span>BIS Hallmarked</span></li>
+              <li><img src="assets/certs/gia.png" alt="GIA — Gemological Institute of America" loading="lazy" decoding="async" /></li>
+              <li><img src="assets/certs/igi.png" alt="IGI — International Gemological Institute" loading="lazy" decoding="async" /></li>
+              <li><img src="assets/certs/gjepc.png" alt="GJEPC India" loading="lazy" decoding="async" /></li>
+              <li class="cert-bis"><img src="assets/certs/bis.svg" alt="BIS — Bureau of Indian Standards" loading="lazy" decoding="async" /><span>BIS Hallmarked</span></li>
             </ul>
           </div>
         </div>
@@ -507,12 +527,12 @@
         <div class="shell split reverse">
           <div class="split-media reveal">
             <div class="pack-grid">
-              <img src="assets/company/pack-ring.jpg" alt="Diamond halo ring" loading="lazy" />
-              <img src="assets/company/pack-box.jpg" alt="Ring box" loading="lazy" />
-              <img src="assets/company/pack-gift.jpg" alt="Ring presented in a gift box" loading="lazy" />
-              <img src="assets/company/pack-carton.jpg" alt="Protective shipping carton" loading="lazy" />
-              <img src="assets/company/pack-seal.jpg" alt="Carton being sealed" loading="lazy" />
-              <img src="assets/company/pack-label.jpg" alt="Labelled parcel ready for courier" loading="lazy" />
+              <img src="assets/company/pack-ring.jpg" alt="Diamond halo ring" loading="lazy" decoding="async" />
+              <img src="assets/company/pack-box.jpg" alt="Ring box" loading="lazy" decoding="async" />
+              <img src="assets/company/pack-gift.jpg" alt="Ring presented in a gift box" loading="lazy" decoding="async" />
+              <img src="assets/company/pack-carton.jpg" alt="Protective shipping carton" loading="lazy" decoding="async" />
+              <img src="assets/company/pack-seal.jpg" alt="Carton being sealed" loading="lazy" decoding="async" />
+              <img src="assets/company/pack-label.jpg" alt="Labelled parcel ready for courier" loading="lazy" decoding="async" />
             </div>
           </div>
 
@@ -529,10 +549,10 @@
               <p>Shipping time is usually 4–10 working days, depending on the destination country and customs clearance.</p>
             </div>
             <ul class="carriers">
-              <li><img src="assets/carriers/dhl.svg" alt="DHL" loading="lazy" /></li>
-              <li><img src="assets/carriers/fedex.svg" alt="FedEx" loading="lazy" /></li>
-              <li><img src="assets/carriers/ups.svg" alt="UPS" loading="lazy" /></li>
-              <li><img src="assets/carriers/aramex.svg" alt="Aramex" loading="lazy" /></li>
+              <li><img src="assets/carriers/dhl.svg" alt="DHL" loading="lazy" decoding="async" /></li>
+              <li><img src="assets/carriers/fedex.svg" alt="FedEx" loading="lazy" decoding="async" /></li>
+              <li><img src="assets/carriers/ups.svg" alt="UPS" loading="lazy" decoding="async" /></li>
+              <li><img src="assets/carriers/aramex.svg" alt="Aramex" loading="lazy" decoding="async" /></li>
             </ul>
           </div>
         </div>
@@ -590,7 +610,7 @@
                 We usually ship express with companies like FedEx, UPS, DHL and Aramex. Shipping time varies anytime
                 between 4 to 10 working days depending on the country, shipping agency and time taken for customs
                 clearance. Our Customs House Agents are highly experienced in jewellery export procedures.
-              </p>
+              </p>g
             </details>
             <details>
               <summary>What is the production timeline?</summary>
@@ -631,15 +651,65 @@
             </ul>
           </div>
 
-          <!-- The form itself opens as a popup (built in main.js) -->
-          <div class="quote-form quote-cta reveal">
+          <form id="quote-form" class="quote-form reveal">
             <h3>Request a quote</h3>
-            <p class="form-note">Share your designs, quantities, metal and stones — we'll reply with a detailed quotation. All designs are kept strictly confidential.</p>
-            <div class="form-buttons">
-              <a href="#contact" class="btn btn-dark">Open Enquiry Form</a>
-              <a href="https://wa.me/919902413410" target="_blank" rel="noopener" class="btn btn-whatsapp"><svg class="icon"><use href="#i-chat"></use></svg>WhatsApp Us</a>
+            <p class="form-note">Fill in your details, then send them to us on WhatsApp or by email.</p>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="f-name">Name <span>*</span></label>
+                <input id="f-name" name="name" type="text" autocomplete="name" required />
+              </div>
+              <div class="field">
+                <label for="f-company">Company / Brand</label>
+                <input id="f-company" name="company" type="text" autocomplete="organization" />
+              </div>
             </div>
-          </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="f-email">Email <span>*</span></label>
+                <input id="f-email" name="email" type="email" autocomplete="email" required />
+              </div>
+              <div class="field">
+                <label for="f-phone">Phone / WhatsApp</label>
+                <input id="f-phone" name="phone" type="tel" autocomplete="tel" />
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="f-country">Country</label>
+                <input id="f-country" name="country" type="text" autocomplete="country-name" />
+              </div>
+              <div class="field">
+                <label for="f-quantity">Approx. quantity</label>
+                <input id="f-quantity" name="quantity" type="text" placeholder="e.g. 50 pcs per design" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="f-collection">Collection</label>
+              <select id="f-collection" name="collection">
+                <option value="">Select a collection</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="f-message">Your requirements</label>
+              <textarea id="f-message" name="message" placeholder="Design references, metal, stones, finish, branding, timeline…"></textarea>
+            </div>
+            <div class="field">
+              <label for="f-files">Attachments</label>
+              <input id="f-files" name="files" type="file" multiple accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.zip,.stl,.3dm" />
+              <p class="field-hint">
+                <svg class="icon"><use href="#i-paperclip"></use></svg>
+                Sketches, reference photos or CAD files. Once WhatsApp or your email opens, please attach these files
+                there too. All designs are kept strictly confidential.
+              </p>
+            </div>
+
+            <div class="form-buttons">
+              <button type="submit" value="whatsapp" class="btn btn-whatsapp"><svg class="icon"><use href="#i-chat"></use></svg>Send on WhatsApp</button>
+              <button type="submit" value="email" class="btn btn-dark"><svg class="icon"><use href="#i-mail"></use></svg>Send by Email</button>
+            </div>
+          </form>
         </div>
       </section>
     </main>
