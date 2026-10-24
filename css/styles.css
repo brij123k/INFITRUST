@@ -520,6 +520,11 @@ h4 {
   min-width: 0;
 }
 
+/* Phones & tablets: banner first, then the title, icons, materials and buttons */
+.hero-grid > .hero-media {
+  order: -1;
+}
+
 /* Phones & tablets stack in source order: title + icons, banner, materials + buttons */
 .hero-text {
   padding-block: 1.5rem 1.25rem;
@@ -2360,6 +2365,7 @@ h4 {
 
   .hero-grid > .hero-media {
     grid-area: media;
+    order: 0;
     height: auto;
     min-height: 0;
     margin-inline: 0 calc((100vw - min(100vw, 76rem)) / -2 - 1.75rem);
